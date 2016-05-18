@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper,scale=0.8]{geometry}
+\usepackage[english]{babel} % needed for English texts
+\usepackage[utf8]{inputenc} % unicode encoding
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{stmaryrd}
+\usepackage{hyperref}  % automagically makes clickable references, table of contents
+\usepackage{enumerate}
+\usepackage{lipsum}
+\usepackage{titlesec}
+
+
+\newtheorem{definition}{Definition}[section] % defines the definition environment
+\newtheorem{theorem}{Theorem}[section] % defines the theorem environment
+\newtheorem{lemma}{Lemma}[section]
+%\newtheorem{proof}{Proof}[section] % defines the proof environment
+
+% Sets and set operation
+\newcommand{\R}{\mathbb{R}} % the reals
+\newcommand{\Z}{\mathbb{Z}} % the integers
+\newcommand{\N}{\mathbb{N}} % the natural numbers
+\renewcommand{\O}[1]{\mathcal{O}\l(#1\r)}
+%\newcommand{\pot}[1]{\mathcal{P}(#1)} % power set
+
+
+% Convenience
+\renewcommand{\l}{\left} % short left
+\renewcommand{\r}{\right} % short right
+\newcommand{\explain}[1]{\hspace*{2em} \l(\text{\small #1}\r)} % explanation in proof, indented line with smaller text
+
+
+
+% change section titles to inline, bold without numbering
+\titleformat{\section}[runin]{\bfseries}{\thesection}{1em}{}[.]
+
+
+\title{Storing a Sparse Table}
+\date{Summer Semester 2016}
+\author{Simon Feiden\\Supervisor: Daniel Neuen}
+
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+
+\vspace*{2em}
+
+\begin{center}
+	\begin{minipage}[t]{0.8\textwidth}
+		\section*{Abstract} % \\[0.4em]
+		\input{bounds/abstract.tex}
+	\end{minipage}
+\end{center}
+\newpage
+
+
+
+\section*{Introduction}
+\input{bounds/introduction.tex}
+
+
+
+\section*{Tries à la Knuth}
+\input{topic/tries.tex}
+
+
+
+\section*{Displacements}
+\input{topic/displacements.tex}
+
+
+
+\section*{RDI Compression}
+\input{topic/rdi_compression.tex}
+
+
+
+\section*{Conclusion}
+\input{bounds/conclusion.tex}
+\newpage
+
+
+\bibliographystyle{abbrv}
+\bibliography{literature}
+
+\end{document}
