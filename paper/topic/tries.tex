@@ -1,24 +1,11 @@
-%\begin{tikzpicture}
-%\matrix (root)  [table, text width=7mm, name=root]
-%{ 30 & {} & {} & {} & {} \\};
-%\matrix (lvl1c) [table, text width=7mm, name=lvl1c, below of=root]
-%{ 33 & {} & {} & {} & {} \\};
-%\matrix (lvl1l) [table, text width=7mm, name=lvl1l, left of=lvl1c]
-%{ 24 & {} & {} & {} & {} \\};
-%\matrix (lvl2r) [table, text width=7mm, name=lvl1r, right of=lvl1c]
-%{ 17 & {} & {} & {} & {} \\};
-%\matrix (tape)  [table, text width=7mm, name=new, below of=lvl1r]
-%{ 30 & {} & {} & {} & {} \\};
-%\end{tikzpicture}
-
 \begin{figure}
 	\centering
-%	\includegraphics[width=\textwidth]{topic/sampletrie_drawn}	
-	\includegraphics[width=\textwidth]{topic/imgtries/sampletrie_drawn_transp}
+%	\includegraphics[width=\textwidth]{topic/imgtries/sampletrie_drawn_transp}
+	\input{topic/sample_trie.tex}
 	\caption{ \small A trie with $k = 4$ and entries 30, 24, 33, 19 and 11.
 		To insert 45, we repeatedly divide 45 by 4, giving
 			$45 \overset{1}{\longrightarrow} 11  \overset{3}{\longrightarrow} 2$.
-		The remainders 3 and 2 lead to the node with value 33 where we insert a new node at slot 2 with value 45.
+		The remainders 1 and 3 lead to 33 where we insert a new node at slot 3 with value 45 as indicated.
 		To delete 19, we search for it with the sequence $19 \overset{3}{\longrightarrow} 4$.
 		Then, we localise a leaf that is a descendant of 19, in this trie, only 11 is possible.
 		We remove 11 and set the value of 19 to 11.

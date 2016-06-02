@@ -1,0 +1,25 @@
+\newcommand{\trienode}[2]{% node label, options for matrix
+	\matrix (n#1) [table, text width=7mm, ampersand replacement=\&, #2]
+	{ #1 \& {} \& {} \& {} \& {} \\};
+	\node[font=\tiny, anchor=south] at (n#1-1-2.north) {0};
+	\node[font=\tiny, anchor=south] at (n#1-1-3.north) {1};
+	\node[font=\tiny, anchor=south] at (n#1-1-4.north) {2};
+	\node[font=\tiny, anchor=south] at (n#1-1-5.north) {3}
+}
+
+\begin{tikzpicture}[align=center, node distance=2.5cm]
+	\trienode{30}{};	
+	\trienode{33}{below of=n30};
+	\trienode{24}{left =2cm of n33};
+	\trienode{19}{right=2cm of n33};
+	\trienode{11}{below of=n19};
+	
+	\trienode{45}{below of=n33, dashed};
+	
+	\draw[edge] (n30-1-2) to[out=270, in=90] (n24-1-1.north);
+	\draw[edge] (n30-1-3.south) to[out=270, in=90] (n33-1-1.north);
+	\draw[edge] (n30-1-5.south) to[out=270, in=90] (n19-1-1.north);
+	\draw[edge] (n19-1-4.south) to[out=270, in=90] (n11-1-1.north);
+	
+	\draw[edge, dashed] (n33-1-5.south) to[out=270, in=90] (n45-1-1.north);
+\end{tikzpicture}
