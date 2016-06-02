@@ -15,10 +15,14 @@
 	\centering
 %	\includegraphics[width=\textwidth]{topic/sampletrie_drawn}	
 	\includegraphics[width=\textwidth]{topic/imgtries/sampletrie_drawn_transp}
-	\caption{ \small A trie with $k = 4$ and entries 30, 24, 33 and 19.
-		To insert 11, we repeatedly divide 11 by 4, giving
-			$11 \overset{3}{\longrightarrow} 2  \overset{2}{\longrightarrow} 0$.
-		The remainders 3 and 2 lead to the center right node where we insert a new node with value 11 as shown.}
+	\caption{ \small A trie with $k = 4$ and entries 30, 24, 33, 19 and 11.
+		To insert 45, we repeatedly divide 45 by 4, giving
+			$45 \overset{1}{\longrightarrow} 11  \overset{3}{\longrightarrow} 2$.
+		The remainders 3 and 2 lead to the node with value 33 where we insert a new node at slot 2 with value 45.
+		To delete 19, we search for it with the sequence $19 \overset{3}{\longrightarrow} 4$.
+		Then, we localise a leaf that is a descendant of 19, in this trie, only 11 is possible.
+		We remove 11 and set the value of 19 to 11.
+		\label{fig:trie}}
 \end{figure}
 
 
@@ -42,4 +46,13 @@ If $v$ is not present there, we follow the sequence of remainders as above.
 At every node, we check if it contains $v$.
 If we eventually reach a null pointer the trie does not contain $v$, otherwise it does.
 To delete a value $u$, we first search for $u$ in the trie and store the node $n_u$ which contains $u$.
-Now, we locate any leaf that is a descendant of $n_u$, replace the value in $n_u$ by the leaf's value and then remove the leaf from the trie.
+If $n_u$ is a leaf, we simply delete it.
+Otherwise, we locate any leaf that is a descendant of $n_u$, replace the value in $n_u$ by the leaf's value and then remove the leaf from the trie.
+Examples for the operations can be found in Figure~\ref{fig:trie}.
+A trie requires $\O{kn}$ space in the worst case.
+The longest path starting at the root node in a trie has length $\O{\log_k\pfrac{N}{n}}$.
+This means that search, insertion and deletion in a trie have the same time complexity:
+During each operation, we follow some path in the trie.
+In the worst case, the path is the longest in the trie and we follow it until we reach a leaf which requires $\O{\log_k\pfrac{N}{n}}$ time.
+Insertion and deletion additionally manipulate some nodes, but in both cases these changes are constant time because only one or two nodes must be changed.
+If the values to be inserted into a trie are uniformly and independently distributed, lookup and insertion time are $\O{1}$.
