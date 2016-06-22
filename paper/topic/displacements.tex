@@ -1,0 +1,29 @@
+In this section, we will show how a static table with null entries can be compressed such that almost no null entries must be stored.
+The method works only for the static case, which means that all data is added to the table before any of it is looked up.
+All tables are basically two-dimensional arrays that have the same number of rows and columns, i.e.\ they are square.
+The remaining setup is similar to tries:
+We store $n$ integers in the range $0$ through $N - 1$ in the tables.
+Since all integers in the range must fit in a table, $N$ is the table size.
+The tables are square, so $N$ must be a square and there is an $m$ such that $N = m^2$.
+$m$ is then the number of rows and columns.
+Further we assume that $n \geq \max(2, m)$.
+The cell $(i, j)$ for an integer $k$ can be found by counting rowwise from the top left until $k$ or by the following formula: $i = \l\lfloor \frac{k}{m} \r\rfloor + 1$ and $j = k \operatorname{mod} m + 1$.
+The table entry for $k$ contains the information belonging to $k$ if $k$ is present in the table and null otherwise.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  %\input{topic/row_displacements.tex}
+  \includegraphics[width=0.5\textwidth]{topic/collapse}
+	\caption{Rows of a table collapsed into a one-dimensional array. \label{fig:row_disp}}
+\end{wrapfigure}
+
+The compression of such a table $A$ happens in two steps.
+Since we consider the static case of table storage, we know all entries before any lookup is performed and we can first insert all $n$ entries into $A$.
+Now, we transform $A$ into a one-dimensional array $C$ by mapping every position in $A$ to an index of $C$.
+The idea is that we overlap the rows of $A$ so that null entries from previous rows are overwritten by non-null entries of later rows. See Figure~\ref{fig:row_disp}.
+Note that the displacement for each row is not calculated in the order in which they appear in the table.
+The reason is the following:
+Our goal is to minimize the size of $C$.
+However, finding the optimal row displacements for a given table is an NP-complete problem.
+Instead, we use a heuristic that gives good results for common use cases.
+The rows are first sorted by the number of zeroes they contain.
+Then we displace every row stepwise until no overlaps with previous rows occur.
