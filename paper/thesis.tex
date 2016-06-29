@@ -13,7 +13,7 @@
 \usepackage{wrapfig}
 
 \usepackage{tikz}
-\usetikzlibrary{matrix, positioning}
+\usetikzlibrary{matrix, fit, positioning}
 \tikzset{
 	edge/.style={thick, ->},
 	table nodes/.style={
@@ -51,6 +51,9 @@
 \renewcommand{\O}[1]{\mathcal{O}\l(#1\r)}
 %\newcommand{\pot}[1]{\mathcal{P}(#1)} % power set
 
+% Other operator
+\renewcommand{\mod}{\operatorname{\%}}
+\newcommand{\s}{\ast}
 
 % Convenience
 \renewcommand{\l}{\left} % short left
@@ -97,8 +100,12 @@
 
 
 
-\section*{Displacements}
-\input{topic/displacements.tex}
+\section*{Single Displacements}
+\input{topic/single_displacements.tex}
+
+
+\section*{Double Displacements}
+\input{topic/double_displacements.tex}
 
 
 

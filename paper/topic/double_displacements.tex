@@ -1,0 +1,27 @@
+The heuristic algorithm given above for calculating row displacements does not perform well in the worst case.
+The intuition behind this drawback is that rows with many nonzero entries block a lot of possible displacements for the remaining rows.
+Since the displacements for the rows with many nonzeros are calculated first, the first few rows may block a big chunk and in consequence later rows are assigned bigger displacements.
+
+To improve on the previous method, we introduce another layer of indirection:
+We will add a set of column displacements $c_i$ that are applied before the row displacements are calculated.
+The column displacements transform a table $A$ into a larger table $B$ with more rows and are supposed to distribute the nonnull entries in $B$ better.
+Here, better means that the increased size of $B$ makes up for the unfavourable distribution of nonnulls in the original table $A$.
+
+The column displacements $c_i$ are calculated similar to the row displacements.
+The first column is assigned a displacement of zero ($c_1 = 0$).
+Then, from the left to the right for each column $j$, $c_j$ is increased stepwise until the \emph{exponential decay condition} $E_j$ is satisfied.
+Before explaining $E_j$, let $B_j$ be the first $j$ displaced columns of $A$ and $n_j(i)$ be the total number of nonzeros of rows in $B_j$ that have more than $i$ nonzeros.
+Then, $n_j(i) = 0$ if $i > j$ and $n_j(i)$ is non-increasing in $i$.
+$E_j$ then states that for all $i$, $n_j(i)$ must decrease exponentially.
+Our improved storage scheme for a table $A$ now works as follows:
+First, calculate the column displacements $c_i$ for $A$.
+Transform $A$ into a table $B$ using the $c_i$ where empty entries are filled with zeros.
+Calculate the row displacements $r_i$ for $B$ and use them to collapse $B$ into an array $C$.
+To look up a value $k$, we calculate its position $(i, j)$ as seen above.
+After that we apply the row and columns displacements to get an index $k' = r_{i + c_j} + j$ into $C$.
+$A$ contained $k$ if $C(k')$ equals $k$.
+A few words on the formula for $k'$.
+The index $i + c_j$ points to the row where $k$'s cell is moved to by the column displacements.
+This row in turn is shifted by its row displacement.
+This means that $r_{i + c_j}$ points to the start of the row in which $k$ lies after applying column and row displacements.
+To find $k$'s position in $C$, we have to add $j$ to the start of the row and together we get the above formula for $k'$.
