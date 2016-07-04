@@ -1,0 +1,88 @@
+\newcommand{\trienode}[2]{% node label, options for matrix
+	\matrix (n#1) [table, text width=7mm, ampersand replacement=\&, #2]
+	{ #1 \& {} \& {} \& {} \& {} \\};
+	\node[font=\tiny, anchor=south] at (n#1-1-2.north) {0};
+	\node[font=\tiny, anchor=south] at (n#1-1-3.north) {1};
+	\node[font=\tiny, anchor=south] at (n#1-1-4.north) {2};
+	\node[font=\tiny, anchor=south] at (n#1-1-5.north) {3}
+}
+
+\begin{tikzpicture}[align=center, node distance=0.5cm and 1cm]
+	
+	\matrix (ri) [%
+			matrix of nodes,
+			draw = none,
+			row sep = 0.7em,
+			column sep = 0em
+	]
+	{
+		0    \\ 0    \\ $\s$ \\
+		$\s$ \\ 0    \\ $\s$ \\
+		0    \\ $\s$ \\ 0 \\
+		0    \\ 0    \\ 0 \\
+	};
+	\node[draw, fit = (ri-1-1) (ri-12-1)] (ri-fit) {};
+	\node[above = of ri-1-1] (rilabel) {$r_i$};
+	
+	\foreach \n in {1,...,12} {
+		\node[font=\scriptsize, left = 0.5cm of ri-\n-1 ] {\n};
+	}
+	
+	
+	\matrix (R) [%
+			matrix of nodes,
+			draw = none,
+			row sep = 0.7em,
+			column sep = 0em,
+			right = of ri
+	]
+	{
+		$r_3$ \\ $r_4$ \\ $r_6$ \\ $r_8$ \\
+	};
+	\node[draw, fit = (R-1-1) (R-4-1)] (r-fit) {};
+	\node[above = of R-1-1] (Rlabel) {$R$};
+	
+	\foreach \n in {1,...,4} {
+		\node[font=\scriptsize, left = 0.25cm of R-\n-1 ] {\n};
+	}
+	
+	
+	\matrix (D) [%
+			matrix of nodes,
+			draw = none,
+			row sep = 0.7em,
+			column sep = 0em,
+			right = of R
+	]
+	{
+		0 \\ 1 \\ 2 \\ 3 \\
+	};
+	\node[draw, fit = (D-1-1) (D-4-1)] (D-fit) {};
+	\node[above = of D-1-1] (Dlabel) {$D$};
+	
+	
+	\matrix (I) [%
+			matrix of nodes,
+			draw = none,
+			row sep = 0.7em,
+			column sep = 0em,
+			right = of D
+	]
+	{
+		0 \\ 0 \\ 1 \\
+		1 \\ 0 \\ 2 \\
+		0 \\ 1 \\ 0 \\
+		0 \\ 0 \\ 0 \\
+	};
+	\node[draw, fit = (I-1-1) (I-12-1)] (i-fit) {};
+	\node[above = of I-1-1] (Ilabel) {$I$};
+	
+	
+	
+	\node[draw, fit = (I-4-1) (I-6-1)] (a) {};
+	\node[draw, fit = (I-10-1) (I-12-1)] (b) {};
+	
+	\node[draw, fit = (ri-4-1) (ri-6-1)] (c) {};
+	\node[draw, fit = (ri-10-1) (ri-12-1)] (d) {};
+	
+\end{tikzpicture}

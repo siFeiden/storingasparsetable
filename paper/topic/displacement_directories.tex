@@ -1,0 +1,49 @@
+The storage scheme using row and column displacements does a good job at compressing tables.
+But still, there is one more improvement that can be made.
+Assume again that we transform a table $A$ using the column displacements $c_i$ into a table $B$ and in turn collapse $B$ into an array $C$ using the row displacements $r_i$.
+%
+\begin{wrapfigure}{r}{0.5\textwidth}
+	\centering
+	\input{topic/tikz/rdi_tables.tex}
+	\caption{\small Row displacement directory for $p = 12, n = 4$, $d = 3$ with the arrays $R, D$ and $I$. $D$ indexes into $R$, $I$ contains offsets for the indices in $D$. \label{fig:rdi_tables}}
+\end{wrapfigure}
+%
+After the transformation and collapse, we can free the memory of $A$ and $B$ because their information is now stored in $C$.
+However, in order to perform a lookup of a name in $C$, we need to know the $r_i$ and $c_i$ as we have seen above.
+Let us explore how many row and column displacements must be stored.
+The size of $A$ is $m \times m$, so we the number of column displacements we have to store for $A$ is $m$.
+The transformation into $B$ increases the number of rows respective to $A$, requiring us to store more than $m$ row displacements.
+By an analysis of the double displacement scheme, we find out that there are
+$p := \l\lfloor 4 n \log_2 \log_2 n + m + 9.5 n \r\rfloor$ row displacements to be stored and only at most $n$ of them are nonzero.
+This means that there is some potential to compress the table for the row displacements which we will examine in the following.
+
+First of all, we split the $p$ entries for the row displacements into $n$ sections.
+Each section then has the size $d = p/n = \l\lceil 4 \log_2 \log_2 n + m/n + 9.5 \r\rceil$.
+Then, we introduce three new arrays $R$, $D$ and $I$.
+$R$ is of size $n$ and contains only the nonzero $r_i$ in ascending order on $i$.
+$R(1)$ contains the first nonnull row displacement, $R(2)$ the second one and so on.
+The entries in $D$ are indices into $R$.
+%$D(j)$ has value $i$ such that $i$ is the largest index of a nonnull row displacement that occurs in the first $j - 1$ sections.
+To calculate $D(j)$, we find $i$ such that it is the largest index of a nonnull row displacement occurring in the first $j - 1$ sections.
+$D(j)$ is then the index of $r_i$ in $R$.
+If no such index $i$ exists, set $D(j) = 0$.
+Consider Figure~\ref{fig:rdi_tables}.
+To find $D(3)$, we look at the first $3 - 1 = 2$ sections of the row displacement table in the left column.
+They are the first six entries, containing two nonnull row displacements.
+The largest index of a nonnull row displacement in these six entries is $5$.
+$r_5$ occurs in $R$ at position $2$, so $D(3) = 2$.
+If we want to calculate $D(1)$, we have to look in the first $0$ sections.
+The condition from above cannot be fulfilled beccause we consider 0 entries and instead we set $D(1) = 0$.
+$D(2)$ is similar, since in the first section there is no nonnull row displacement.
+Here as well, we set the entry in $D$ to zero.
+
+$I$ has length $nd$, i.e. as many entries as there are row displacements.
+The entries in $I$ are offsets to the positions stored in $D$ and they are calculated sectionwise.
+For every index $i$ from lower to higher in a section, we store zero at $I(i)$ if $r_i$ is zero.
+Otherwise, we first increment a counter which starts at zero and store its value at $I(i)$.
+This means that in every section, the entry corresponding to the first nonnull row displacement is set to 1, the second to 2 and so on.
+All other entries in a section are 0.
+
+We have split up the list of row displacements into three arrays.
+If we want to look up the displacement $r_i$, we first calculate the section $s$ that entry $i$ is in: $s = \l\lceil i / d \r\rceil$.
+Then $r_i = R(D(s) + I(i))$.
