@@ -1,6 +1,6 @@
 The heuristic algorithm given above for calculating row displacements does not perform well in the worst case.
 The intuition behind this drawback is that rows with many nonzero entries block a lot of possible displacements for the remaining rows.
-Since the displacements for the rows with many nonzeros are calculated first, the first few rows may block a big chunk and in consequence later rows are assigned bigger displacements.
+Since the displacements for the rows with many nonzeros are calculated first, the first few rows may block a big chunk and in consequence later rows are assigned larger displacements.
 
 To improve on the previous method, we introduce another layer of indirection:
 We will add a set of column displacements $c_i$ that are applied before the row displacements are calculated.
@@ -17,6 +17,7 @@ Our improved storage scheme for a table $A$ now works as follows:
 First, calculate the column displacements $c_i$ for $A$.
 Transform $A$ into a table $B$ using the $c_i$ where empty entries are filled with zeros.
 Calculate the row displacements $r_i$ for $B$ and use them to collapse $B$ into an array $C$.
+
 To look up a value $k$, we calculate its position $(i, j)$ as seen above.
 After that we apply the row and columns displacements to get an index $k' = r_{i + c_j} + j$ into $C$.
 $A$ contained $k$ if $C(k')$ equals $k$.
