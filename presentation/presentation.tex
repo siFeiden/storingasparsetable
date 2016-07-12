@@ -1,0 +1,105 @@
+\documentclass{beamer}
+
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{stmaryrd}
+\usepackage{hyperref}  % automagically makes clickable references, table of contents
+\usepackage{enumerate}
+\usepackage{lipsum}
+%\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+\usepackage{tikz}
+\usetikzlibrary{matrix, fit, positioning}
+\tikzset{
+	edge/.style={thick, ->},
+	table nodes/.style={
+		rectangle,
+		draw=black,
+		style=thick,
+		align=center,
+		minimum height=7mm,
+		text depth=0.5ex,
+		text height=2ex,
+		inner xsep=0pt,
+		outer sep=0pt,
+		inner sep=0pt
+	},
+	table/.style={
+		matrix of nodes,
+		row sep=-0.5pt,
+		column sep=-0.5pt,
+		nodes={
+			table nodes
+		}
+	}
+}
+
+
+% Sets and set operations
+\newcommand{\R}{\mathbb{R}} % the reals
+\newcommand{\Z}{\mathbb{Z}} % the integers
+\newcommand{\N}{\mathbb{N}} % the natural numbers
+\renewcommand{\O}[1]{\mathcal{O}\l(#1\r)}
+%\newcommand{\pot}[1]{\mathcal{P}(#1)} % power set
+
+% Other operator
+%\renewcommand{\mod}{\operatorname{\%}}
+\newcommand{\s}{\ast}
+
+% Convenience
+\renewcommand{\l}{\left} % short left
+\renewcommand{\r}{\right} % short right
+\newcommand{\pfrac}[2]{\l( \frac{#1}{#2} \r)}
+
+%\setbeamertemplate{bibliography item}{\insertbiblabel}
+\setbeamertemplate{footline}[frame number]
+
+
+
+
+\title{Storing a Sparse Table}
+\subtitle{Theory of Efficient Hashing Techniques}
+\date{21.07.2016}
+\author{Simon Feiden}
+
+
+\begin{document}
+	
+	
+\maketitle
+
+%\begin{frame}
+%	\tableofcontents
+%\end{frame}
+
+
+\section{Introduction}
+\input{bounds/introduction.tex}
+
+
+\begin{frame}
+	\frametitle{\ }
+	\begin{center}
+		\LARGE Thank you for your attention!
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
+	% empty frame
+\end{frame}
+
+
+\input{bounds/more.tex}
+
+
+\bibliographystyle{alpha}
+\bibliography{literature}
+
+
+\end{document}
+
