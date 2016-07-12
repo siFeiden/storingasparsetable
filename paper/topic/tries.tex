@@ -29,17 +29,17 @@ We follow the sequence of pointers until we reach a null pointer, which is where
 This completes the insertion of a value into a trie.
 Searching a value $v$ in a trie happens in a similar way:
 First, we check for $v$ in the root.
-If $v$ is not present there, we follow the sequence of remainders as above.
-At every node, we check if it contains $v$.
+If $v$ is not present there we follow the sequence of remainders as above.
+At every node we check if it contains $v$.
 If we eventually reach a null pointer the trie does not contain $v$, otherwise it does.
 To delete a value $u$, we first search for $u$ in the trie and store the node $n_u$ which contains $u$.
 If $n_u$ is a leaf, we simply delete it.
 Otherwise, we locate any leaf that is a descendant of $n_u$, replace the value in $n_u$ by the leaf's value and then remove the leaf from the trie.
 Examples for the operations can be found in Figure~\ref{fig:trie}.
 A trie requires $\O{kn}$ space in the worst case.
-The longest path starting at the root node in a trie has length $\O{\log_k\pfrac{N}{n}}$.
+The longest path starting at the root node in a trie has length $\O{\log_k N}$.
 This means that search, insertion and deletion in a trie have the same time complexity:
 During each operation, we follow some path in the trie.
-In the worst case, the path is the longest in the trie and we follow it until we reach a leaf which requires $\O{\log_k\pfrac{N}{n}}$ time.
+In the worst case, the path is the longest in the trie and we follow it until we reach a leaf which requires $\O{\log_k N}$ time.
 Insertion and deletion additionally manipulate some nodes, but in both cases these changes are constant time because only one or two nodes must be changed.
-If the values to be inserted into a trie are uniformly and independently distributed, lookup and insertion time are $\O{1}$.
+%If the values to be inserted into a trie are uniformly and independently distributed, lookup and insertion time are $\O{1}$.

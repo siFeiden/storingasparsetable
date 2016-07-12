@@ -1,20 +1,20 @@
 In this and the next section, we will show how a static table containing null entries can be compressed such that almost no null entries must be stored.
 The method works only for the static case, which means that all data is added to the table before any of it is looked up.
 All tables are basically two-dimensional arrays that have the same number of rows and columns, i.e.\ they are square.
-The remaining setup is similar to tries:
-We store $n$ integers in the range $0$ through $N - 1$ in the tables.
-Since all integers in the range must fit in a table, $N$ is the table size.
-The tables are square, so $N$ must be a square and there is an $m$ such that $N = m^2$.
-$m$ is then the number of rows and columns.
-Further we assume that $n \geq \max(2, m)$.
-The cell $(i, j)$ for an integer $k$ can be found by counting rowwise from the top left until $k$ or by the following formula: $i = \l\lfloor \frac{k}{m} \r\rfloor + 1$ and $j = k \mod m + 1$.
-The table entry for $k$ contains the information belonging to $k$ if $k$ is present in the table and null otherwise.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \input{topic/tikz/row_displacements.tex}
 	\caption{ \small Rows of a table displaced and collapsed into a one-dimensional array. \label{fig:row_disp}}
 \end{wrapfigure}
 
+The remaining setup is similar to tries:
+We store $n$ integers in the range $0$ through $N - 1$ in the tables.
+Since all integers in the range must fit in a table, $N$ is the table size.
+The tables are square, so $N$ must be a square and there is an $m$ such that $N = m^2$.
+$m$ is then the number of rows and columns.
+Further we assume that $n \geq \max(2, m)$.
+The cell $(i, j)$ for an integer $k$ can be found by counting rowwise from the top left until $k$ or by the following formula: $i = \l\lfloor \frac{k}{m} \r\rfloor + 1$ and $j = \l( k \mod m \r) + 1$.
+The table entry for $k$ contains the information belonging to $k$ if $k$ is present in the table and null otherwise.
 The compression of such a table $A$ happens in two steps.
 Since we consider the static case of table storage, we know all entries before any lookup is performed and we can first insert all $n$ entries into $A$.
 Now, we transform $A$ into a one-dimensional array $C$ by mapping every position in $A$ to an index of $C$.

@@ -1,7 +1,7 @@
 In this work, we elaborate and explain the techniques presented in \cite{tarjan:storing_sparse_table} to store a map from words to objects with $\O{1}$ lookup and minimised storage needs.
 The words are natural numbers in the range $0$ through $N-1$ while the objects can be arbitrary data.
 We consider the \emph{static case} where $n$ words are added to the map before any lookups are performed.
-In order to apply several optimisations to our storage scheme, we assume that $N$ is bounded by a polynomial in $n$, i.e.~$N \in \O{n^{1 + \varepsilon}}$.
+In order to apply several optimisations to our storage scheme, we assume that $N$ is bounded by a polynomial in $n$, i.e.~$N \in \O{n^c}$.
 This guarantees that the tables we will compress later are sparse, but not too sparse. \\
 First of all, we will introduce \emph{tries} which are a data structure based on trees.
 Then, seemingly unrelated, we will present a way to compress tables in three steps using row and column displacements as well as a special indexing scheme.

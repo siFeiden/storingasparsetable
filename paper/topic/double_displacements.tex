@@ -10,8 +10,8 @@ Here, better means that the increased size of $B$ makes up for the unfavourable 
 The column displacements $c_i$ are calculated similar to the row displacements.
 The first column is assigned a displacement of zero ($c_1 = 0$).
 Then, from the left to the right for each column $j$, $c_j$ is increased stepwise until the \emph{exponential decay condition} $E_j$ is satisfied.
-Before explaining $E_j$, let $B_j$ be the first $j$ displaced columns of $A$ and $n_j(i)$ be the total number of nonzeros of rows in $B_j$ that have more than $i$ nonzeros.
-Then, $n_j(i) = 0$ if $i > j$ and $n_j(i)$ is non-increasing in $i$.
+Before explaining $E_j$, let $B_j$ be the first $j$ displaced columns of $A$ and $n_j(i)$ be the total number of nonzeros in rows of $B_j$ that have more than $i$ nonzeros.
+Then $n_j(i) = 0$ if $i > j$ and $n_j(i)$ is non-increasing in $i$.
 $E_j$ then states that for all $i$, $n_j(i)$ must decrease exponentially.
 Our improved storage scheme for a table $A$ now works as follows:
 First, calculate the column displacements $c_i$ for $A$.
