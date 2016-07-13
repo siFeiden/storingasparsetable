@@ -36,6 +36,7 @@ To delete a value $u$, we first search for $u$ in the trie and store the node $n
 If $n_u$ is a leaf, we simply delete it.
 Otherwise, we locate any leaf that is a descendant of $n_u$, replace the value in $n_u$ by the leaf's value and then remove the leaf from the trie.
 Examples for the operations can be found in Figure~\ref{fig:trie}.
+
 A trie requires $\O{kn}$ space in the worst case.
 The longest path starting at the root node in a trie has length $\O{\log_k N}$.
 This means that search, insertion and deletion in a trie have the same time complexity:
