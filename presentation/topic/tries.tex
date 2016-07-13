@@ -1,0 +1,161 @@
+\begin{frame}{Tries --- Overview}
+	\begin{itemize}[<+->]
+		\itemspacing{20pt}
+		\item Tree data structure for integers
+		\item Also known as \emph{prefix trees} for strings
+		\item Degree $k$ at every node
+		\item Usual operations: \code{insert}, \code{lookup}, \code{delete}
+		\item Path in trie specified by a single integer
+	\end{itemize}
+\end{frame}
+
+
+\newcommand{\trienode}[2]{% node label, options for matrix
+	\matrix (n#1) [table, text width=7mm, ampersand replacement=\&, #2]
+	{ #1 \& {} \& {} \& {} \& {} \\};
+	\node[font=\tiny, anchor=south] at (n#1-1-2.north) {0};
+	\node[font=\tiny, anchor=south] at (n#1-1-3.north) {1};
+	\node[font=\tiny, anchor=south] at (n#1-1-4.north) {2};
+	\node[font=\tiny, anchor=south] at (n#1-1-5.north) {3}
+}
+
+\begin{frame}{Examples --- \code{insert}}
+	\resizebox{\textwidth}{!}{%
+		
+		\begin{tikzpicture}[align=center, node distance=2cm]
+			\trienode{30}{};
+			
+			\trienode{33}{below of=n30};
+			\draw[edge] (n30-1-3.south) to[out=270, in=90] (n33-1-1.north);
+			
+			\visible<3->{
+				\trienode{24}{left =2cm of n33};
+				\draw[edge] (n30-1-2.south) to[out=250, in=70] (n24-1-1.north);
+			}
+			
+			\visible<5->{
+				\alert<6-7>{ \trienode{19}{right=2cm of n33}; }
+				\draw[edge] (n30-1-5.south) to[out=270, in=90] (n19-1-1.north);
+			}
+			
+			\visible<8->{
+				\trienode{47}{below of=n19};
+				\draw[edge] (n19-1-4.south) to[out=270, in=90] (n47-1-1.north);
+			}
+		\end{tikzpicture}
+	}
+	
+	\begin{itemize}
+		\item<2-> $24 \divmod (6, 0)$
+		\item<4-> $19 \divmod (4, 3)$
+		\item<6-> $47 \divmod (11, 3) \uncover<7->{ \divmod (2, 3) }$
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}{Examples --- \code{lookup}}
+	\resizebox{\textwidth}{!}{%
+		
+		\begin{tikzpicture}[align=center, node distance=2cm]
+		\alert<2,7>{
+			\trienode{30}{};
+		}
+		
+		\alert<9>{
+			\trienode{33}{below of=n30};
+			\draw[edge] (n30-1-3.south) to[out=270, in=90] (n33-1-1.north);
+		}
+		
+		\alert<4>{
+			\trienode{24}{left =2cm of n33};
+			\draw[edge] (n30-1-2.south) to[out=250, in=70] (n24-1-1.north);
+		}
+		
+		\trienode{19}{right=2cm of n33};
+		\draw[edge] (n30-1-5.south) to[out=270, in=90] (n19-1-1.north);
+		
+		\trienode{47}{below of=n19};
+		\draw[edge] (n19-1-4.south) to[out=270, in=90] (n47-1-1.north);
+		\end{tikzpicture}
+	}
+	
+	\begin{itemize}
+		\item<2-> $24
+				\uncover<3->{ \divmod (6, 0) }
+				\phantom{mmm}$
+				\uncover<5->{ \ding{51} }
+				
+		\item<6-> $25
+				\uncover<8->{ \divmod (6, 1) }
+				\uncover<10->{ \divmod (1, 2) }
+				\phantom{mmm}$
+				\uncover<11>{ \ding{55}}
+	\end{itemize}
+	
+\end{frame}
+
+
+\begin{frame}{Examples --- \code{delete}}
+	\resizebox{\textwidth}{!}{%
+		
+		\begin{tikzpicture}[align=center, node distance=2cm]
+		\trienode{30}{};
+		
+		\trienode{33}{below of=n30};
+		\draw[edge] (n30-1-3.south) to[out=270, in=90] (n33-1-1.north);
+		
+		\visible<1-2>{
+			\alert<2>{
+				\trienode{24}{left =2cm of n33};
+				\draw[edge] (n30-1-2.south) to[out=250, in=70] (n24-1-1.north);
+			}
+		}
+		
+		\visible<-6>{
+			\alert<4,6-7>{
+				\trienode{19}{right=2cm of n33};
+				\draw[edge] (n30-1-5.south) to[out=270, in=90] (n19-1-1.north);
+			}
+		}
+		
+		\visible<7->{
+			\alert<7->{
+					\matrix (n75b) [table, text width=7mm, ampersand replacement=\&, right=2cm of n33]
+						{ 75 \& {} \& {} \& {} \& {} \\};
+					\node[font=\tiny, anchor=south] at (n75b-1-2.north) {0};
+					\node[font=\tiny, anchor=south] at (n75b-1-3.north) {1};
+					\node[font=\tiny, anchor=south] at (n75b-1-4.north) {2};
+					\node[font=\tiny, anchor=south] at (n75b-1-5.north) {3};
+					\draw[edge] (n30-1-5.south) to[out=270, in=90] (n75b-1-1.north);
+			}
+		}
+		
+		\trienode{47}{below of=n19};
+		\draw[edge] (n19-1-4.south) to[out=270, in=90] (n47-1-1.north);
+		
+		\visible<1-5>{
+			\alert<5> {
+				\trienode{75}{below of=n47};
+				\draw[edge] (n47-1-2.south) to[out=270, in=90] (n75-1-1.north);
+			}
+		}
+		\end{tikzpicture}
+	}
+	
+	\begin{itemize}
+		\item<1-> \code{delete} 24
+		\item<4-> \code{delete} 19
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Tries --- Analysis}
+	\begin{itemize}[<+->]
+		\itemspacing{20pt}
+		\item Insertion of $n$ values in range $0, \ldots, N - 1$
+		\item Longest path is $\O{\log_k N}$
+		\item \code{insert}, \code{lookup}, \code{delete} follow a path (to a leaf)
+		\item Constant time changes to nodes in \code{insert}, \code{delete}
+		\item Worst case $\O{\log_k N}$ for all three methods
+	\end{itemize}
+\end{frame}

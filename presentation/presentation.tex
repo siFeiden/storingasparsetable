@@ -8,12 +8,13 @@
 \usepackage{hyperref}  % automagically makes clickable references, table of contents
 \usepackage{enumerate}
 \usepackage{lipsum}
-%\usepackage{titlesec}
 \usepackage{graphicx}
 \usepackage{wrapfig}
+\usepackage{pifont}
+\usepackage{epigraph}
 
 \usepackage{tikz}
-\usetikzlibrary{matrix, fit, positioning}
+\usetikzlibrary{matrix, fit, positioning, decorations.pathmorphing}
 \tikzset{
 	edge/.style={thick, ->},
 	table nodes/.style={
@@ -46,7 +47,7 @@
 \renewcommand{\O}[1]{\mathcal{O}\l(#1\r)}
 %\newcommand{\pot}[1]{\mathcal{P}(#1)} % power set
 
-% Other operator
+% Other operators
 %\renewcommand{\mod}{\operatorname{\%}}
 \newcommand{\s}{\ast}
 
@@ -54,6 +55,11 @@
 \renewcommand{\l}{\left} % short left
 \renewcommand{\r}{\right} % short right
 \newcommand{\pfrac}[2]{\l( \frac{#1}{#2} \r)}
+\newcommand{\divmod}{\overset{\operatorname{divmod}}{\longrightarrow}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+\newcommand{\itemspacing}[1]{\setlength\itemsep{#1}}
 
 %\setbeamertemplate{bibliography item}{\insertbiblabel}
 \setbeamertemplate{footline}[frame number]
@@ -62,7 +68,7 @@
 
 
 \title{Storing a Sparse Table}
-\subtitle{Theory of Efficient Hashing Techniques}
+\subtitle{Seminar Theory of Efficient Hashing Techniques}
 \date{21.07.2016}
 \author{Simon Feiden}
 
@@ -72,13 +78,22 @@
 	
 \maketitle
 
-%\begin{frame}
-%	\tableofcontents
-%\end{frame}
+\begin{frame}
+	\tableofcontents
+\end{frame}
 
 
 \section{Introduction}
 \input{bounds/introduction.tex}
+
+
+\section{Tries à la Knuth}
+\input{topic/tries.tex}
+
+
+\section{Tables and Displacements}
+\input{topic/single_displacements.tex}
+\input{topic/double_displacements.tex}
 
 
 \begin{frame}
