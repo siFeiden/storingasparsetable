@@ -1,4 +1,4 @@
-\begin{frame}
+\begin{frame}{Indirection}
 	\begin{quotation}
 		Any problem in computer science can be solved by another layer of indirection.
 	\end{quotation}
@@ -8,4 +8,102 @@
 		--- David Wheeler
 		}
 	\end{flushright}
+\end{frame}
+
+\begin{frame}{Column Displacements}
+	\begin{columns}
+		\begin{column}[T]{0.6\textwidth}
+			\begin{itemize}[<+->]
+				\itemspacing{20pt}
+%				\item \makebox[\linewidth][l]{Indirection: Column Displacements}
+				\item Indirection: Column Displacements
+				\item First displace columns, then displace rows
+				\item Fill empty cells with 0
+				\item Better compression makes up for more rows
+				\item Why it works: fewer nonulls per row
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}[T]{0.4\textwidth}
+			\centering
+			\only<2> {
+				\resizebox{0.9\textwidth}{!}{
+					\begin{tikzpicture}[align=center, node distance=6cm]
+						\matrix (cd) [
+							matrix of nodes,
+							draw=none,
+							row sep = 0.7em,
+							column sep = 1.2em,
+							ampersand replacement=\&
+						] {
+							0                \& $\phantom{0}$    \& 0                \& $\phantom{0}$    \& $\s$          \\
+							$\s$             \& $\phantom{0}$    \& 0                \& $\phantom{0}$    \& 0             \\
+							$\s$             \& $\phantom{0}$    \& $\s$             \& $\phantom{0}$    \& 0             \\
+							0                \& $\phantom{0}$    \& 0                \& $\phantom{0}$    \& 0             \\
+							$\s$             \& $\phantom{0}$    \& 0                \& $\phantom{0}$    \& $\s$          \\
+							$\phantom{0}$    \& $\s$             \& $\phantom{0}$    \& $\phantom{0}$    \& $\phantom{0}$ \\
+							$\phantom{0}$    \& $\s$             \& $\phantom{0}$    \& 0                \& $\phantom{0}$ \\
+							$\phantom{0}$    \& 0                \& $\phantom{0}$    \& $\s$             \& $\phantom{0}$ \\
+							$\phantom{0}$    \& 0                \& $\phantom{0}$    \& 0                \& $\phantom{0}$ \\
+							$\phantom{0}$    \& 0                \& $\phantom{0}$    \& $\s$             \& $\phantom{0}$ \\
+							$\phantom{0}$    \& $\phantom{0}$    \& $\phantom{0}$    \& 0                \& $\phantom{0}$ \\
+						};
+						
+						\visible<1> {
+							\node[draw, fit = (cd-1-1) (cd-11-5), inner sep = 0.9em] (cd-fit) {};
+						}
+						
+						\node[draw, fit = (cd-1-1) (cd-5-1)]  (c1) {};
+						\node[draw, fit = (cd-1-3) (cd-5-3)]  (c3) {};
+						\node[draw, fit = (cd-1-5) (cd-5-5)]  (c5) {};
+						\node[draw, fit = (cd-6-2) (cd-10-2)] (c2) {};
+						\node[draw, fit = (cd-7-4) (cd-11-4)] (c4) {};
+					\end{tikzpicture}
+				}
+			}
+			\only<3-> {
+				\resizebox{0.9\textwidth}{!}{
+					\begin{tikzpicture}[align=center, node distance=6cm]
+						\matrix (cd) [
+							matrix of nodes,
+							draw=none,
+							row sep = 0.7em,
+							column sep = 1.2em,
+							ampersand replacement=\&
+						] {
+							0    \& 0    \& 0    \& 0    \& $\s$ \\
+							$\s$ \& 0    \& 0    \& 0    \& 0    \\
+							$\s$ \& 0    \& $\s$ \& 0    \& 0    \\
+							0    \& 0    \& 0    \& 0    \& 0    \\
+							$\s$ \& 0    \& 0    \& 0    \& $\s$ \\
+							0    \& $\s$ \& 0    \& 0    \& 0    \\
+							0    \& $\s$ \& 0    \& 0    \& 0    \\
+							0    \& 0    \& 0    \& $\s$ \& 0    \\
+							0    \& 0    \& 0    \& 0    \& 0    \\
+							0    \& 0    \& 0    \& $\s$ \& 0    \\
+							0    \& 0    \& 0    \& 0    \& 0    \\
+						};
+						
+						\node[draw, fit = (cd-1-1) (cd-11-5), inner sep = 0.9em] (cd-fit) {};
+						
+						\node[draw, fit = (cd-1-1) (cd-5-1)]  (c1) {};
+						\node[draw, fit = (cd-1-3) (cd-5-3)]  (c3) {};
+						\node[draw, fit = (cd-1-5) (cd-5-5)]  (c5) {};
+						\node[draw, fit = (cd-6-2) (cd-10-2)] (c2) {};
+						\node[draw, fit = (cd-7-4) (cd-11-4)] (c4) {};
+					\end{tikzpicture}
+				}
+			}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Column Displacements --- Analysis}
+	\begin{itemize}[<+->]
+		\itemspacing{20pt}
+		\item $m$ columns displacements to store
+		\item $\O{n \log \log n + m}$ rows after displacements
+		\item $\O{n}$ of them have nonnull row displacement
+		\item Potential for more compression
+	\end{itemize}
 \end{frame}
