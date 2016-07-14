@@ -1,0 +1,29 @@
+\begin{frame}{Putting Together the Pieces}
+	\resizebox{\textwidth}{!}{%
+		\begin{tikzpicture}[align=center, node distance=2cm]
+			\trienode{30}{};
+			
+			\trienode{33}{below of=n30};
+			\draw[edge] (n30-1-3.south) to[out=270, in=90] (n33-1-1.north);
+		
+			\trienode{24}{left =2cm of n33};
+			\draw[edge] (n30-1-2.south) to[out=250, in=70] (n24-1-1.north);
+		
+			\trienode{19}{right=2cm of n33};
+			\draw[edge] (n30-1-5.south) to[out=270, in=90] (n19-1-1.north);
+		
+			\trienode{47}{below of=n19};
+			\draw[edge] (n19-1-4.south) to[out=270, in=90] (n47-1-1.north);
+		\end{tikzpicture}
+	}
+\end{frame}
+	
+\begin{frame}{Putting Together the Pieces}
+	\begin{itemize}[<+->]
+		\itemspacing{20pt}
+		\item Consider pointers as a table
+		\item Compress this table as seen above
+		\item In general: use trie with degree $n$
+		\item Storage $\O{n}$ and access time $\O{\log_n N}$
+	\end{itemize}
+\end{frame}

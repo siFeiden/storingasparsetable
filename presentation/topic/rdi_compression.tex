@@ -1,0 +1,139 @@
+\begin{frame}{RDI Compression}
+	\centering
+	\resizebox{!}{0.75\textheight}{
+		\begin{tikzpicture}[align=center, node distance=0.5cm and 1cm]
+			\matrix (ri) [%
+				matrix of nodes,
+				draw = none,
+				row sep = 0.7em,
+				column sep = 0em
+			]
+			{
+				\alert<6-8,10>{0}    \\
+				\alert<6-8,10>{0}    \\
+				\alert<6-8>{$\s$} \\
+				\alert<7-8>{$\s$} \\
+				\alert<7-8,10>{0}     \\
+				\alert<7-8>{$\s$} \\
+				\alert<8,10>{0}      \\
+				\alert<8>{$\s$} \\
+				\alert<8,10>{0}    \\
+				\alert<10>{0}     \\
+				\alert<10>{0}     \\
+				\alert<10>{0}     \\
+			};
+			\node[draw, fit = (ri-1-1) (ri-12-1)] (ri-fit) {};
+			\node[above = of ri-1-1] (rilabel) {$r_i$};
+			
+			\foreach \n in {1,...,12} {
+				\node[font=\scriptsize, left = 0.5cm of ri-\n-1 ] {\n};
+			}
+			
+			\visible<2->{
+				\matrix (R) [%
+					matrix of nodes,
+					draw = none,
+					row sep = 0.7em,
+					column sep = 0em,
+					right = of ri
+				]
+				{
+					$r_3$ \\ $r_4$ \\ \alert<16>{$r_6$} \\ $r_8$ \\
+				};
+				\node[draw, fit = (R-1-1) (R-4-1)] (r-fit) {};
+				\node[above = of R-1-1] (Rlabel) {$R$};
+				
+				\foreach \n in {1,...,4} {
+					\node[font=\scriptsize, left = 0.25cm of R-\n-1 ] {\n};
+				}
+			}
+			
+			
+			\visible<3->{
+				\node[draw, fit = (ri-4-1) (ri-6-1)] (c) {};
+				\node[draw, fit = (ri-10-1) (ri-12-1)] (d) {};
+			}
+			
+			
+			\visible<4->{
+				\matrix (D) [%
+					matrix of nodes,
+					draw = none,
+					row sep = 0.7em,
+					column sep = 0em,
+					right = of R
+				]
+				{
+					\alert<5>{0} \\
+					\alert<6,15>{1} \\
+					\alert<7>{3} \\
+					\alert<8>{4} \\
+				};
+				\node[draw, fit = (D-1-1) (D-4-1)] (D-fit) {};
+				\node[above = of D-1-1] (Dlabel) {$D$};
+			}
+			
+			\visible<6>{
+				\draw[edge, red] (D-2-1.west) to[out=180, in=0] (R-1-1.east);
+			}
+				
+			\visible<7>{
+				\draw[edge, red] (D-3-1.west) to (R-3-1.east);
+			}
+				
+			\visible<8>{
+				\draw[edge, red] (D-4-1.west) to (R-4-1.east);
+			}
+			
+			
+			\visible<9->{
+				\matrix (I) [%
+					matrix of nodes,
+					draw = none,
+					row sep = 0.7em,
+					column sep = 0em,
+					right = of D
+				]
+				{
+					\alert<10>{0} \\
+					\alert<10>{0} \\
+					\alert<11>{1} \\
+					\alert<12>{1} \\
+					\alert<10>{0} \\
+					\alert<12,15>{2} \\
+					\alert<10>{0} \\
+					\alert<13>{1} \\
+					\alert<10>{0} \\
+					\alert<10>{0} \\
+					\alert<10>{0} \\
+					\alert<10>{0} \\
+				};
+				
+				\node[draw, fit = (I-1-1) (I-12-1)] (i-fit) {};
+				\node[above = of I-1-1] (Ilabel) {$I$};
+				
+				
+				
+				\node[draw, fit = (I-4-1) (I-6-1)] (a) {};
+				\node[draw, fit = (I-10-1) (I-12-1)] (b) {};
+			}
+			
+			
+			\visible<14->{
+				\node[right = 1cm of I-6-1] (lu6) {6 (in section 2)};
+				\draw[edge] (lu6.west) to (I-6-1.east);
+			}
+			
+		\end{tikzpicture}
+	}
+\end{frame}
+
+\begin{frame}{RDI Compression}
+	\begin{itemize}[<+->]
+		\itemspacing{20pt}
+		\item Values in $I$ are in $\O{\log \log n}$
+		\item Pack multiple small values into one
+		\item Reduces required storage for $I$
+		\item Achieves overall compression of row displacements
+	\end{itemize}
+\end{frame}
