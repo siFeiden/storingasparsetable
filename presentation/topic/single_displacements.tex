@@ -63,7 +63,7 @@
 				ampersand replacement=\&,
 				below = 2cm of tbl2
 				] {
-					$\s$ \& $\times$ \& $\times$ \& $\times$   \\
+					$\s$ \& \ding{55} \& \ding{55} \& \ding{55}   \\
 				};
 				\node[draw, fit = (clash-1-1) (clash-1-4)] (clash-fit) {};
 				
@@ -103,7 +103,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Single Displacements}
+\begin{frame}{Row Displacements}
 	\centering
 	\begin{tikzpicture}[align=center, node distance=2cm]
 		\matrix (mx) [%
@@ -128,26 +128,19 @@
 	\end{tikzpicture}
 	
 	\begin{itemize}
-		\item<3-> Finding optimal row displacements is NP-complete
-		\item<4-> Heuristic approach: sort rows by number of nonnulls
+		\item<2-> Finding optimal row displacements is NP-complete
+		\item<3-> Heuristic approach: sort rows by number of nonnulls
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Single Displacements --- \code{lookup}}
+\begin{frame}{Row Displacements}
 	\begin{itemize}[<+->]
 		\itemspacing{20pt}
 		\item Essential operation on a table: \code{lookup} of key $k$
 		\item Calculate position $(i, j)$ for $k$
 		\item Check if $C(r_i + j)$ equals $k$
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Single Displacements --- \code{lookup}}
-	\begin{itemize}[<+->]
-		\itemspacing{20pt}
-		\item Essential operation on a table: \code{lookup} of key $k$
-		\item Calculate position $(i, j)$ for $k$
-		\item Check if $C(r_i + j)$ equals $k$
+		\item $\O{1}$ lookup in $C$
+		\item Single Displacements perform bad in worst case
 	\end{itemize}
 \end{frame}
 
