@@ -5,6 +5,6 @@ To overcome this restriction and provide a storage scheme that works well for ar
 Since we still consider the static case of storage and lookup, we know which values we have to store.
 The first step is to insert all these values into a trie with branching factor $n$.
 The trie then contains $n$ nodes with $n$ pointers each.
-Note, that of these $n^2$ pointers, exactly $n - 1$ are nonnull, since every node except the root is pointed at exactly once.
+Note that of these $n^2$ pointers, exactly $n - 1$ are nonnull, since every node except the root is pointed at exactly once.
 The pointer arrays of each node can be combined into a table of size $n \times n$ and compressed using double displacements (with $m = n$) and a displacement directory.
 The properties of the trie data structure combined with the compression methods finally give us a method with storage in $\O{n}$ and access time in $\O{\log_n N}$.
