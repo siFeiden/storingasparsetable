@@ -2,7 +2,9 @@ In this work, we elaborate and explain the techniques presented in \cite{tarjan:
 The words are natural numbers in the range $0$ through $N-1$ while the objects can be arbitrary data.
 We consider the \emph{static case} where $n$ words are added to the map before any lookups are performed.
 In order to apply several optimisations to our storage scheme, we assume that $N$ is bounded by a polynomial in $n$, i.e.~$N \in \O{n^c}$.
-This guarantees that the tables we will compress later are sparse, but not too sparse. \\
+This guarantees that the tables we will compress are sparse, but not too sparse.
+Use cases are LR parsing and sparse Gaussian elimination which can be implemented using such tables.
+In both cases, $c = 2$ giving $N \in \O{n^2}$. \\
 First of all, we will introduce \emph{tries} which are a data structure based on trees.
 Then, seemingly unrelated, we will present a way to compress tables in three steps using row and column displacements as well as a special indexing scheme.
 Finally, we combine both ideas to obtain a way to store a sparse table with good space complexity.

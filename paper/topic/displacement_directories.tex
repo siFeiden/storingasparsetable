@@ -29,13 +29,11 @@ $D(j)$ is then the index of $r_i$ in $R$.
 If no such index $i$ exists, set $D(j) = 0$.
 Consider Figure~\ref{fig:rdi_tables}.
 To find $D(3)$, we look at the first $3 - 1 = 2$ sections of the row displacement table in the left column.
-They are the first six entries, containing two nonnull row displacements.
-The largest index of a nonnull row displacement in these six entries is $5$.
-$r_5$ occurs in $R$ at position $2$, so $D(3) = 2$.
+They are the first six entries, containing three nonnull row displacements.
+The largest index of a nonnull row displacement in these six entries is $6$.
+$r_6$ occurs in $R$ at position $3$, so $D(3) = 2$.
 If we want to calculate $D(1)$, we have to look in the first $0$ sections.
 The condition from above cannot be fulfilled because we consider 0 entries and instead we set $D(1) = 0$.
-$D(2)$ is similar, since in the first section there is no nonnull row displacement.
-Here as well, we set the entry in $D$ to zero.
 
 $I$ has length $nd$, i.e. as many entries as there are row displacements.
 The entries in $I$ are offsets to the positions stored in $D$ and they are calculated sectionwise.
@@ -47,3 +45,7 @@ All other entries in a section are 0.
 We have split up the list of row displacements into three arrays.
 If we want to look up the displacement $r_i$, we first calculate the section $s$ that entry $i$ is in: $s = \l\lceil i / d \r\rceil$.
 Then $r_i = R(D(s) + I(i))$.
+We see that we have to store $R$, $D$ and $I$ in order to look up a row displacement.
+Yet, $R$, $D$ and $I$ together have more entries than only the array of row displacements.
+The benefit of storing these three arrays instead of one is that the entries of $I$ are in the range 0 to $d$, allowing us to pack $I$ densely by storing multiple entries of $I$ in a single cell of our storage.
+This is possible because each cell can hold values of magnitude up to $N$, and $d$ is less than $N$.

@@ -18,9 +18,12 @@ The table entry for $k$ contains the information belonging to $k$ if $k$ is pres
 The compression of such a table $A$ happens in two steps.
 Since we consider the static case of table storage, we know all entries before any lookup is performed and we can first insert all $n$ entries into $A$.
 Now, we transform $A$ into a one-dimensional array $C$ by mapping every position in $A$ to an index of $C$.
-The idea is that we overlap the rows of $A$ so that null entries from previous rows are overwritten by nonnull entries of later rows.
-This is achieved by assigning a horizontal displacement $r_i$ to every row $i \in \{ 1, \ldots, m \}$.
-See Figure~\ref{fig:row_disp}.
+The idea is that we collapse the columns of $A$ into a single nonnull value and thus reduce the number of null entries that need to be stored.
+Since a column can have more than one nonnull entry, this is in general not possible for the table $A$.
+Instead, we assign a horizontal displacement $r_i$ to every row $i \in \{ 1, \ldots, m \}$.
+Such a displacement $r_i$ shifts all entries of row $i$ to the right, independent of the other rows.
+If the displacements are well chosen, there will be no columns with more than one nonnull entry and the resulting table can be collapsed into an array $C$.
+See Figure~\ref{fig:row_disp} for a graphical example.
 Note that the displacement for each row is not calculated in the order in which they appear in the original table.
 The reason is the following:
 Our goal is to minimize the size of the collapsed table.

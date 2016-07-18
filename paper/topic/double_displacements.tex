@@ -13,10 +13,14 @@ Then, from the left to the right for each column $j$, $c_j$ is increased stepwis
 Before explaining $E_j$, let $B_j$ be the first $j$ displaced columns of $A$ and $n_j(i)$ be the total number of nonzeros in rows of $B_j$ that have more than $i$ nonzeros.
 Then $n_j(i) = 0$ if $i > j$ and $n_j(i)$ is non-increasing in $i$.
 $E_j$ then states that for all $i$, $n_j(i)$ must decrease exponentially.
-Our improved storage scheme for a table $A$ now works as follows:
+Our improved storage scheme for a table $A$ is now:
 First, calculate the column displacements $c_i$ for $A$.
-Transform $A$ into a table $B$ using the $c_i$ where empty entries are filled with zeros.
-Calculate the row displacements $r_i$ for $B$ and use them to collapse $B$ into an array $C$.
+Apply the $c_i$ to $A$.
+Since the rows are shifted independently of each other, there may be empty spaces before or after a shifted column.
+For example, this can be seen in Figure~\ref{fig:row_disp} where the space left of the third to fourth row and right of the first, second and fourth row is empty.
+This empty space is filled with zero entries to create a complete, possibly non square table before the next step.
+Note that in Figure~\ref{fig:row_disp}, row displacements have been applied, however it is the same for column displacements.
+Next, calculate the row displacements $r_i$ for $B$ and use them to collapse $B$ into an array $C$.
 
 To look up a value $k$, we calculate its position $(i, j)$ as seen above.
 After that we apply the row and columns displacements to get an index $k' = r_{i + c_j} + j$ into $C$.
