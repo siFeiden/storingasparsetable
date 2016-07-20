@@ -16,11 +16,13 @@
 			\begin{itemize}[<+->]
 				\itemspacing{20pt}
 %				\item \makebox[\linewidth][l]{Indirection: Column Displacements}
-				\item Indirection: Column Displacements
+				\item Indirection: column displacements
 				\item First displace columns, then displace rows
 				\item Fill empty cells with 0
-				\item Better compression makes up for more rows
-				\item Why it works: fewer nonnulls per row
+%				\item Better compression makes up for more rows
+%				\item Why it works: fewer nonnulls per row
+				\item Displacements satisfy \emph{exponential decay condition}
+				\item[]<1-.>
 			\end{itemize}
 		\end{column}
 		
@@ -49,9 +51,7 @@
 							$\phantom{0}$    \& $\phantom{0}$    \& $\phantom{0}$    \& 0                \& $\phantom{0}$ \\
 						};
 						
-						\visible<1> {
-							\node[draw, fit = (cd-1-1) (cd-11-5), inner sep = 0.9em] (cd-fit) {};
-						}
+						\node[fit = (cd-1-1) (cd-11-5), inner sep = 0.9em] (cd-fit) {};
 						
 						\node[draw, fit = (cd-1-1) (cd-5-1)]  (c1) {};
 						\node[draw, fit = (cd-1-3) (cd-5-3)]  (c3) {};
@@ -96,6 +96,17 @@
 			}
 		\end{column}
 	\end{columns}
+\end{frame}
+
+\begin{frame}{Column Displacements --- Analysis}
+	\begin{itemize}[<+->]
+		\itemspacing{20pt}
+		\item $n_j$: number of nonzeros in first $j$ columns
+		\item $n_j(i)$: $n(i)$ for the first $j$ columns
+		\item Exponential decay $E_j \colon n_j(i) \leq 2^{i(2 - n_j / n)}$ for all $i$
+		\item Guarantees that $c_j \in \O{n \log \log n}$
+		\item Good results in the worst case
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Column Displacements --- Analysis}

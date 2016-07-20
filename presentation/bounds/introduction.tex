@@ -1,2 +1,18 @@
 \begin{frame}{}
+	\begin{itemize}[<+->]
+		\itemspacing{10pt}
+		\item Storing $n$ values from range $0, \ldots, N - 1$
+		\item Goal: minimize lookup and storage complexity
+		\item[]
+			\begin{tabular}{l | l | l}
+				{}             & Lookup \ \ \ & Storage \ \ \ \\
+				\hline
+				Arrays         & $\O{1}$           & $\O{N}$       \\[1em]
+				Hashing        & $\O{n}$           & $\O{n}$       \\[1em]
+				Trees          & $\O{\log n}$      & $\O{n}$       \\[1em]
+				Tries + tables & $\O{1}$           & $\O{n}$
+			\end{tabular}
+		\item Sparseness: $N \in \O{n^c}$
+		\item Applications in LR parsing and sparse Gaussian elimination
+	\end{itemize}
 \end{frame}
