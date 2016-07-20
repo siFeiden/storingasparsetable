@@ -1,20 +1,11 @@
 \begin{frame}{Sparse Tables}
 	\begin{itemize}[<+->]
 		\itemspacing{20pt}
-		\item Tables are 2d-arrays with cells $\{1, \ldots, m\} \times \{1, \ldots, m\}$ or $\{ 1, \ldots, m^2 \}$
-		\item Recall $n$ and $N$
+		\item Tables are 2d-arrays with cells $\{1, \ldots, m\} \times \{1, \ldots, m\}$ % or $\{ 1, \ldots, m^2 \}$
 		\item $N$ must be the table size
-		\item Square tables $\implies$ $N = m \times m$
+		\item Square tables $\implies$ $N = m \cdot m$
 		\item Sparseness: $N \in \O{n^c}$
 		\item Goal: compressing a table
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Sparse Tables --- Applications}
-	\begin{itemize}[<+->]
-		\itemspacing{20pt}
-		\item Stuff 1
-		\item Stuff 2
 	\end{itemize}
 \end{frame}
 
@@ -43,10 +34,10 @@
 					ampersand replacement=\&,
 					right of = tbl
 				] {
-					0                 \& \alert<4>{ $\s$ } \& $\s$ \&  0   \\
-					\alert<3>{ $\s$ } \& 0                 \& 0    \&  $\s$ \\
-					0                 \& 0                 \& $\s$ \&  0   \\
-					0                 \& \alert<4>{ $\s$ } \& $\s$ \&  $\s$ \\
+					0                 \& $\s$  \& $\s$ \&  0                 \\
+					\alert<4>{ $\s$ } \& 0     \& 0    \&  \alert<3>{ $\s$ } \\
+					0                 \& 0     \& $\s$ \&  0                 \\
+					\alert<4>{ $\s$ } \& $\s$  \& $\s$ \&  0                 \\
 				};
 				\node[draw, fit = (tbl2-1-1) (tbl2-4-4)] (tbl2-fit) {};
 				
@@ -63,7 +54,7 @@
 				ampersand replacement=\&,
 				below = 2cm of tbl2
 				] {
-					$\s$ \& \ding{55} \& \ding{55} \& \ding{55}   \\
+					\ding{55} \& \ding{55} \& \ding{55} \& $\s$   \\
 				};
 				\node[draw, fit = (clash-1-1) (clash-1-4)] (clash-fit) {};
 				
@@ -87,7 +78,7 @@
 			{}   \& {}   \& 0    \& $\s$ \& $\s$ \& 0    \& {}   \& {} \& {}   \& $r_3 = 2$ \\
 			{}   \& {}   \& {}   \& {}   \& {}   \& $\s$ \& 0    \& 0  \& $\s$ \& $r_4 = 5$ \\
 			{}   \& {}   \& {}   \& {}   \& 0    \& 0    \& $\s$ \& 0  \& {}   \& $r_1 = 3$ \\
-			{\ }   \& {}   \& {}   \& $\phantom{10}$   \& {\ }   \& {}   \& {}   \& {\ } \& {}   \& {}        \\
+			$\phantom{5}$ \& $\phantom{6}$ \& $\phantom{7}$ \& $\phantom{10}$ \& $\phantom{11}$ \& $\phantom{13}$ \& $\phantom{3}$ \& $\phantom{0}$ \& $\phantom{16}$ \& $\phantom{r_1 = C}$ \\
 		};
 		
 		\node[draw, fit = (mx-1-1) (mx-1-4)] (1-fit) {};
@@ -104,28 +95,39 @@
 \end{frame}
 
 \begin{frame}{Row Displacements}
-	\centering
-	\begin{tikzpicture}[align=center, node distance=2cm]
-		\matrix (mx) [%
-			matrix of nodes,
-			draw = none,
-			row sep = 0.7em,
-			column sep = 0em,
-			ampersand replacement=\&
-		] {
-			$\s$ \& $\s$ \& $\s$ \& 0    \& {}   \& {}   \& {}   \& {} \& {}   \&[1em] $r_2 = 0$ \\
-			{}   \& {}   \& 0    \& $\s$ \& $\s$ \& 0    \& {}   \& {} \& {}   \& $r_3 = 2$ \\
-			{}   \& {}   \& {}   \& {}   \& {}   \& $\s$ \& 0    \& 0  \& $\s$ \& $r_4 = 5$ \\
-			{}   \& {}   \& {}   \& {}   \& 0    \& 0    \& $\s$ \& 0  \& {}   \& $r_1 = 3$ \\
-			5    \& 6    \& 7    \& 10   \& 11   \& 13   \& 3    \& 0  \& 16   \& $\phantom{r_1 = } C$ \\
-		};
-		
-		\node[draw, fit = (mx-1-1) (mx-1-4)] (1-fit) {};
-		\node[draw, fit = (mx-2-3) (mx-2-6)] (2-fit) {};
-		\node[draw, fit = (mx-3-6) (mx-3-9)] (3-fit) {};
-		\node[draw, fit = (mx-4-5) (mx-4-8)] (4-fit) {};
-		\node[draw, fit = (mx-5-1) (mx-5-9)] (C-fit) {};
-	\end{tikzpicture}
+	\resizebox{\textwidth}{!}{
+		\begin{tikzpicture}[align=center, node distance=2cm]
+			\matrix (mx) [%
+				matrix of nodes,
+				draw = none,
+				row sep = 0.7em,
+				column sep = 0em,
+				ampersand replacement=\&
+			] {
+				$\s$ \& $\s$ \& $\s$ \& 0    \& {}   \& {}   \& {}   \& {} \& {}   \&[1em] $r_2 = 0$ \\
+				{}   \& {}   \& 0    \& $\s$ \& $\s$ \& 0    \& {}   \& {} \& {}   \& $r_3 = 2$ \\
+				{}   \& {}   \& {}   \& {}   \& {}   \& $\s$ \& 0    \& 0  \& $\s$ \& $r_4 = 5$ \\
+				{}   \& {}   \& {}   \& {}   \& 0    \& 0    \& $\s$ \& 0  \& {}   \& $r_1 = 3$ \\
+				$(4,1)$ \&
+				$(4,2)$ \&
+				$(4,3)$ \&
+				$(1,2)$ \&
+				$(1,3)$ \&
+				$(2,1)$ \&
+				$(3,3)$ \&
+				$\phantom{(,}0\phantom{0)}$ \&
+				$(2,4)$ \&
+				$\phantom{r_1 = } C$ \\
+				7 \& 1 \& 14 \& 3 \& 11 \& 8 \& 12 \&  0 \&  4 \\
+			};
+			
+			\node[draw, fit = (mx-1-1) (mx-1-4)] (1-fit) {};
+			\node[draw, fit = (mx-2-3) (mx-2-6)] (2-fit) {};
+			\node[draw, fit = (mx-3-6) (mx-3-9)] (3-fit) {};
+			\node[draw, fit = (mx-4-5) (mx-4-8)] (4-fit) {};
+			\node[draw, fit = (mx-5-1) (mx-6-9)] (C-fit) {};
+		\end{tikzpicture}
+	}
 	
 	\begin{itemize}
 		\item<2-> Finding optimal row displacements is NP-complete

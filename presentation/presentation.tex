@@ -59,6 +59,16 @@
 \newcommand{\code}[1]{\texttt{#1}}
 
 
+\newcommand{\trienode}[2]{% node label, options for matrix
+	\matrix (n#1) [table, text width=7mm, ampersand replacement=\&, #2]
+	{ #1 \& {} \& {} \& {} \& {} \\};
+	\node[font=\tiny, anchor=south] at (n#1-1-2.north) {0};
+	\node[font=\tiny, anchor=south] at (n#1-1-3.north) {1};
+	\node[font=\tiny, anchor=south] at (n#1-1-4.north) {2};
+	\node[font=\tiny, anchor=south] at (n#1-1-5.north) {3}
+}
+
+
 \newcommand{\itemspacing}[1]{\setlength\itemsep{#1}}
 
 %\setbeamertemplate{bibliography item}{\insertbiblabel}
